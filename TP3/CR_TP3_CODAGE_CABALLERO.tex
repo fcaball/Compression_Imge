@@ -116,32 +116,33 @@ En compressant on obtient un taux de compression de t= taille de l'image d'origi
 Pour générer la carte d'erreur pour chaque pixel on fait la différence entre la valeur prédite et la valeur réelle, dans ce partie la prédiction est la valeur du précédent pixel.
 Afin de ne pas avoir de valeurs négatives on ajoute 128 àla valeur obtenue on a donc une image en niveau de gris.
 \begin{figure}[h]
-\centerline{\includegraphics[scale=0.7]{./rendus/MaribaultErreurPredPrec.png} }
+\centerline{\includegraphics[scale=0.4]{./rendus/MaribaultErreurPredPrec.png} }
 \caption{carte des différences}
 \end{figure}
 
 On réalise l'histogramme de cette image obtenue.
 
 \begin{figure}[h]
-\centerline{\includegraphics[scale=0.7]{./rendus/histoPredPrec.png} }
-\caption{carte des différences}
+\centerline{\includegraphics[scale=0.5]{./rendus/histoPredPrec.png} }
+\caption{histogramme avec prédiction avec le précédent}
 \end{figure}
 
 Taux de compression: taille de l'image d'origine / taille de l'image compressée
 
 => 262.2/146.6 =1.7885
 
+
 \newpage
 \subsection{prédiction avec (A+B)/2}
 On fait exactement pareil avec cette fois-ci, on prend pour la prédiction de notre pixel la moyenne entre le pixel d'au dessus et du pixel à gauche du pixel courant.
 \begin{figure}[h]
-\centerline{\includegraphics[scale=0.7]{./rendus/MaribaultErreurPredAplusBsur2.png} }
+\centerline{\includegraphics[scale=0.4]{./rendus/MaribaultErreurPredAplusBsur2.png} }
 \caption{carte des différences}
 \end{figure}
 
 On remarque que le pic de l'histogramme est moins haut cela signifie que la compression sera moins efficace.
 \begin{figure}[h]
-\centerline{\includegraphics[scale=0.7]{./rendus/histoAplusBsur2.png} }
+\centerline{\includegraphics[scale=0.5]{./rendus/histoAplusBsur2.png} }
 \caption{carte des différences}
 \end{figure}
 
@@ -151,14 +152,31 @@ Taux de compression: taille de l'image d'origine / taille de l'image compressée
 
 On remarque en effet que le taux de compression est inférieur à celui d'un espace prédiction avec le précédent.
 
+
+\newpage
 \addcontentsline{toc}{section}{Conclusion}
 \section*{Conclusion}
 On conclu que l'utilisation d'une image d'erreurs de prédictions est plus efficace lors d'une compression par rapport à une simple compression de l'image originale.
 Utiliser différentes méthodes prédictions permet d'avoir de meilleurs taux de compression.
 L'utilisation d'une carte d'erreur de prédictions permet de gagner permet de gagner 0,5 sur le taux de compression et une utilisation différente de prédictions permet de gagner un taux de compression de l'ordre de 0,1.
 
-Une autre possibilité et d'utiliser DPCM afin d'obtenir un meilleur taux de compression.
+Une autre possibilité et d'utiliser  un autre méthode de prédiction comme MED afin d'obtenir un meilleur taux de compression.
+Pour faire la méthode MED on récupère le max entre A (pixel juste avant) et B (pixel au dessus de A) ainsi que le min entre A et B.
+Ensuite si C (pixel au dessus) est supérieur ou égal au max A B on atribut à la valeur prédite le min A B, si cet inférieur au min A B on attribue le max A B sinon attribue A + B - C.
+Notre erreur est égal à la valeur prédite - la valeur réelle.
 
+\begin{figure}[h]
+\centerline{\includegraphics[scale=0.4]{./rendus/MaribaultErreurPredMED.png} }
+\caption{carte des différences}
+\end{figure}
 
+\begin{figure}[h]
+\centerline{\includegraphics[scale=0.4]{./rendus/histoMED.png} }
+\caption{carte des différences}
+\end{figure}
+
+Taux de compression: taille de l'image d'origine / taille de l'image compressée
+
+=> 262.2/97 =2.7030
 
 \end{document}
